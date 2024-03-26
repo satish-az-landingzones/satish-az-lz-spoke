@@ -19,6 +19,7 @@ resource "azurerm_virtual_network" "spoke" {
   subnet {
     name           = "spoke_subnet1"
     address_prefix = "10.1.1.0/24"
+    security_group = azurerm_network_security_group.spoke.id
   }
 
   subnet {
