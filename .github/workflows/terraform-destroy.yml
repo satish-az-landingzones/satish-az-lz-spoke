@@ -1,0 +1,64 @@
+name: 'Terraform Destroy'
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+
+
+jobs:
+  terraform-destory:
+    # if: github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/main' && github.event_name == 'push'
+    name: 'Terraform Destroy'
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        environment:
+           - Production
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: Azure Login
+          uses: azure/login@v1
+          with:
+            client-id: ${{ secrets.ARM_CLIENT_ID }}
+            tenant-id: ${{ secrets.ARM_TENANT_ID }}
+            subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+   
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_version: '1.7.3'
+            cli_config_credentials_token: ${{ secrets.TF_API_TOKEN  }}
+
+        - name: Terraform version
+          id: version-tf-apply
+          shell: bash
+          run: terraform version
+          # # working-directory: terraform
+
+        - name: Terraform Init
+          shell: bash
+          run:
+            terraform init -no-color
+          env:
+            TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
+          # # working-directory: terraform
+
+
+        - name: Terraform Destory
+          id: destroy
+          run: |
+            terraform destroy
