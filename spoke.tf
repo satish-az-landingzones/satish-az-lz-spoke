@@ -61,10 +61,10 @@ resource "azurerm_linux_virtual_machine" "spoke" {
     azurerm_network_interface.spoke.id,
   ]
 
-  # admin_ssh_key {
-  #   username   = "adminuser"
-  #   public_key = file("~/.ssh/id_rsa.pub")
-  # }
+  admin_ssh_key {
+    username   = "admin"
+    public_key =jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
+  }
 
   os_disk {
     caching              = "ReadWrite"
