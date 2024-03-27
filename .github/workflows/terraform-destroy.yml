@@ -59,6 +59,6 @@ jobs:
 
 
         - name: Terraform Destory
-          id: destroy
-          run: |
+          id: tf-destroy
+          run: 
             terraform destroy -auto-approve
