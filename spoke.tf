@@ -56,13 +56,13 @@ resource "azurerm_linux_virtual_machine" "spoke" {
   resource_group_name = azurerm_resource_group.spoke.name
   location            = azurerm_resource_group.spoke.location
   size                = "Standard_F2"
-  admin_username      = "admin"
+  admin_username      = "adminuser"
   network_interface_ids = [
     azurerm_network_interface.spoke.id,
   ]
 
   admin_ssh_key {
-    username   = "admin"
+    username   = "adminuser"
     public_key =jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
   }
 
