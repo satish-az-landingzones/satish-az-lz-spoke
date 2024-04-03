@@ -55,7 +55,7 @@ resource "azurerm_linux_virtual_machine" "spoke" {
   name                = "vm-spoke-eastus-001"
   resource_group_name = azurerm_resource_group.spoke.name
   location            = azurerm_resource_group.spoke.location
-  size                = "B2pts_v2"
+  size                = "Standard_B1ls"
   admin_username      = "adminuser"
   network_interface_ids = [
     azurerm_network_interface.spoke.id,
