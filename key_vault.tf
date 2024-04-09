@@ -1,8 +1,8 @@
 data "azurerm_client_config" "current" {
 }
 
-resource "azurerm_key_vault" "spoke_key_vault" {
-  name                        = "spoke_key_vault"
+resource "azurerm_key_vault" "spoke" {
+  name                        = "spoke-key-vault"
   location                    = azurerm_resource_group.spoke.location
   resource_group_name         = azurerm_resource_group.spoke.name
   enabled_for_disk_encryption = true
