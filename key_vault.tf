@@ -1,3 +1,6 @@
+data "azurerm_client_config" "current" {
+}
+
 resource "azurerm_key_vault" "spoke_key_vault" {
   name                        = "spoke_key_vault"
   location                    = azurerm_resource_group.spoke.location
