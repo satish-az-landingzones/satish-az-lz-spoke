@@ -24,14 +24,12 @@ resource "azurerm_key_vault" "spoke" {
 
     secret_permissions = [
       "Get",
-      "Create",
-      "Update",
+      "Set",
     ]
 
     storage_permissions = [
       "Get",
-      "Create",
-      "Update",
+      "Set",
     ]
   }
 }
