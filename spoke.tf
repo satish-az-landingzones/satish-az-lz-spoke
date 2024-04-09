@@ -52,6 +52,7 @@ resource "azurerm_network_interface" "spoke" {
 }
 
 resource "azurerm_linux_virtual_machine" "spoke" {
+  depends_on = [ azurerm_key_vault_secret.private_key ]
   name                = "vm-spoke-eastus-001"
   resource_group_name = azurerm_resource_group.spoke.name
   location            = azurerm_resource_group.spoke.location
