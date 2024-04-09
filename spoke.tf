@@ -51,31 +51,31 @@ resource "azurerm_network_interface" "spoke" {
   }
 }
 
-resource "azurerm_linux_virtual_machine" "spoke" {
-  depends_on = [ azurerm_key_vault_secret.private_key ]
-  name                = "vm-spoke-eastus-001"
-  resource_group_name = azurerm_resource_group.spoke.name
-  location            = azurerm_resource_group.spoke.location
-  size                = "Standard_B1ls"
-  admin_username      = "adminuser"
-  network_interface_ids = [
-    azurerm_network_interface.spoke.id,
-  ]
+# resource "azurerm_linux_virtual_machine" "spoke" {
+#   depends_on = [ azurerm_key_vault_secret.private_key ]
+#   name                = "vm-spoke-eastus-001"
+#   resource_group_name = azurerm_resource_group.spoke.name
+#   location            = azurerm_resource_group.spoke.location
+#   size                = "Standard_B1ls"
+#   admin_username      = "adminuser"
+#   network_interface_ids = [
+#     azurerm_network_interface.spoke.id,
+#   ]
 
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key =jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
-  }
+#   admin_ssh_key {
+#     username   = "adminuser"
+#     public_key =jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
+#   }
 
-  os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
+#   os_disk {
+#     caching              = "ReadWrite"
+#     storage_account_type = "Standard_LRS"
+#   }
 
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
-    version   = "latest"
-  }
-}
+#   source_image_reference {
+#     publisher = "Canonical"
+#     offer     = "0001-com-ubuntu-server-jammy"
+#     sku       = "22_04-lts"
+#     version   = "latest"
+#   }
+# }
