@@ -17,7 +17,7 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
 
 resource "azurerm_key_vault_secret" "private_key" {
   name         = "private-key"
-  value        = azapi_resource_action.ssh_public_key_gen.output["privateKey"]
+  value        = jsondecode(azapi_resource_action.ssh_public_key_gen.output).privateKey
   key_vault_id = azurerm_key_vault.spoke.id
 }
 
