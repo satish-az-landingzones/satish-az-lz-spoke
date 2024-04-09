@@ -20,19 +20,19 @@ resource "azurerm_key_vault" "spoke" {
       "Get", 
       "Create",
       "Update",
-      "Delete",
+    #   "Delete",
     ]
 
     secret_permissions = [
       "Get",
-      "Delete",
+    #   "Delete",
       "Set",
     ]
 
     storage_permissions = [
       "Get",
       "Update",
-      "Delete",
+    #   "Delete",
       "Set",
     ]
   }
