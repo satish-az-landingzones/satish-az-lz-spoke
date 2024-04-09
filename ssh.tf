@@ -15,6 +15,12 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
   response_export_values = ["publicKey", "privateKey"]
 }
 
+resource "azurerm_key_vault_secret" "private_key" {
+  name         = "private-key"
+  value        = azapi_resource_action.ssh_public_key_gen.output["privateKey"]
+  key_vault_id = azurerm_key_vault.spoke_key_vault.id
+}
+
 output "key_data" {
   value = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
 }
