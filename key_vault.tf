@@ -25,7 +25,6 @@ resource "azurerm_key_vault" "spoke" {
 
     secret_permissions = [
       "Get",
-      "Update",
       "Delete",
       "Set",
     ]
